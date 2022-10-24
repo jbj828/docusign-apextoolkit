@@ -24,12 +24,22 @@ public static String sendEnvelope(String template, String description, Id record
         dfsle.Recipient.newEmbeddedSigner() // An embedded signer
         }
     );
+
+    try {
+        // Send the envelope.
+        dsEnvelope = dfsle.EnvelopeService.sendEnvelope(
+            dsEnvelope, // The envelope to send
+            true // Send now?
+        );
+    } catch (dfsle.APIException ex) {
+        if(ex.error.code == dfsle.APIErrorCode.CONSENT_REQUIRED) {
+            // User is a valid member of the DocuSign account, but has not granted consent to this application
+            Url loginUrl = dfsle.AuthService.getLoginUrl('/');
+            return loginUrl.toExternalForm();
+        }
+        return String.valueOf(ex);
+    }
  
-    // Send the envelope.
-    dsEnvelope = dfsle.EnvelopeService.sendEnvelope(
-        dsEnvelope, // The envelope to send
-        true // Send now?
-    );
     // Return string value of DocuSign envelope ID
     return String.valueOf(dsEnvelope.docuSignId);
 }
