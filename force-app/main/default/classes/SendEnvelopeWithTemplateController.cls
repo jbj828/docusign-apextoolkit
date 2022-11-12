@@ -36,7 +36,7 @@ public class SendEnvelopeWithTemplateController {
             // Send the envelope
             myEnvelope = dfsle.EnvelopeService.sendEnvelope(myEnvelope, true);
         } catch (Exception ex) {
-            // TODO: add error handler which throws the error to the lwc component
+            throw ex;
         }
        
     }
