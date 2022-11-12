@@ -1,7 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import sendEnvelope from '@salesforce/apex/EmbeddedSigningController.sendEnvelope';
 import getEmbeddedSigningUrl from '@salesforce/apex/EmbeddedSigningController.getEmbeddedSigningUrl';
-import errorHandler from '@salesforce/apex/ErrorHandler.errorHandler';
 
 export default class EmbeddedSigningComponent extends LightningElement {
 
